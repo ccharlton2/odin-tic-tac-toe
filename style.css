@@ -1,3 +1,29 @@
 h1 {
   color: green;
 }
+
+.board-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.board-container .row {
+  display: flex;
+}
+
+.board-container .row:nth-child(2) {
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+}
+
+.board-container .row .col {
+  font-size: 24px;
+  padding: 16px;
+}
+
+.board-container .row .col:nth-child(2) {
+  border-right: 2px solid black;
+  border-left: 2px solid black;
+}
