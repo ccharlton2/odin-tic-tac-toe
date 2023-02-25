@@ -43,10 +43,24 @@ h1 {
 
 .reset-button {
   background-color: burlywood;
+}
+
+.play-button {
+  background-color: green;
+  color: white;
+}
+
+button {
+  font-size: 24px;
+  font-weight: 700;
   border-radius: 12px;
   border: none;
   box-shadow: grey 2px 4px 4px;
   padding: 10px 30px;
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 .turn-card {
@@ -61,4 +75,23 @@ h1 {
   box-shadow: grey 2px 4px 4px;
 
   font-size: 24px;
+}
+
+.current-turn {
+  color: green;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.player-input {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.name-input {
+  border-radius: 12px;
+  border: none;
+  background-color: rgb(206, 204, 204);
+  padding: 10px;
 }
