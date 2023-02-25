@@ -1,4 +1,7 @@
 const resetButton = document.querySelector(".reset-button");
+const playButton = document.querySelector(".play-button");
+const currentTurnDiv = document.querySelector(".turn-card");
+const playerInputDiv = document.querySelector(".player-input");
 
 const Player = (name, isHuman, token) => {
   const getName = () => name;
@@ -53,10 +56,37 @@ const Game = (() => {
         boardContainer.appendChild(newRow);
       }
     };
+
+    const resetGame = function () {
+      gameBoard = [
+        ["", "", ""],
+        ["", "", ""],
+        ["", "", ""],
+      ];
+
+      controller.render();
+    };
+
+    resetButton.addEventListener("click", () => {
+      if (confirm("Are you sure you want to reset?")) {
+        resetGame();
+        playerInputDiv.classList.toggle("hidden");
+        currentTurnDiv.classList.toggle("hidden");
+      }
+    });
     return { render };
   })(gameBoard);
 
   const controller = DisplayController;
+
+  const playGame = () => {
+    playerInputDiv.classList.toggle("hidden");
+    currentTurnDiv.classList.toggle("hidden");
+  };
+
+  playButton.addEventListener("click", () => {
+    playGame();
+  });
 
   const placeToken = (token, x, y) => {
     if (gameBoard[x][y] === "") {
@@ -67,22 +97,6 @@ const Game = (() => {
       alert("Space occupied. Please try an empty square!");
     }
   };
-
-  const resetGame = function () {
-    gameBoard = [
-      ["", "", ""],
-      ["", "", ""],
-      ["", "", ""],
-    ];
-
-    controller.render();
-  };
-
-  resetButton.addEventListener("click", () => {
-    if (confirm("Are you sure you want to reset?")) {
-      resetGame();
-    }
-  });
 
   const getGameBoard = () => gameBoard;
 

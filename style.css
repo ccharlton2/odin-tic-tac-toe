@@ -95,3 +95,7 @@ button:hover {
   background-color: rgb(206, 204, 204);
   padding: 10px;
 }
+
+.hidden {
+  display: none;
+}
