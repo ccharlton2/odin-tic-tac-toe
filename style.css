@@ -99,3 +99,13 @@ button:hover {
 .hidden {
   display: none;
 }
+
+.winner {
+  font-size: 30px;
+  font-weight: 700;
+
+  padding: 30px;
+  border-radius: 12px;
+  background-color: rgb(240, 238, 238);
+  box-shadow: grey 2px 4px 4px;
+}

@@ -22,6 +22,7 @@ const Game = (() => {
   const currentTurnDiv = document.querySelector(".turn-card");
   const playerInputDiv = document.querySelector(".player-input");
   const boardContainer = document.querySelector(".board-container");
+  const winnerDiv = document.querySelector(".winner");
 
   const DisplayController = (() => {
     const render = () => {
@@ -82,7 +83,6 @@ const Game = (() => {
   const getCurrentPlayer = () => currentPlayer;
 
   const placeToken = (token, x, y) => {
-    const winnerDiv = document.querySelector(".winner");
     if (gameBoard[x][y] === "") {
       gameBoard[x][y] = token;
 
