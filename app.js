@@ -15,7 +15,7 @@ const Game = (() => {
 
   let playerOne = Player("Cross", true, "X");
   let playerTwo = Player("Naught", true, "O");
-  let playerTurn = playerOne;
+  let currentPlayer = playerOne;
 
   const resetButton = document.querySelector(".reset-button");
   const playButton = document.querySelector(".play-button");
@@ -28,7 +28,7 @@ const Game = (() => {
       boardContainer.textContent = "";
 
       const playerTurnDiv = document.querySelector(".current-turn");
-      playerTurnDiv.textContent = `${getPlayerTurn().getToken()}`;
+      playerTurnDiv.textContent = `${getCurrentPlayer().getName()} (${getCurrentPlayer().getToken()})`;
 
       for (let rowIndex = 0; rowIndex < gameBoard.length; rowIndex += 1) {
         const newRow = document.createElement("div");
@@ -43,7 +43,7 @@ const Game = (() => {
           newCol.textContent = gameBoard[rowIndex][colIndex];
           // eslint-disable-next-line no-loop-func
           newCol.addEventListener("click", () => {
-            const whosTurn = getPlayerTurn();
+            const whosTurn = getCurrentPlayer();
             placeToken(
               whosTurn === playerOne
                 ? playerOne.getToken()
@@ -64,8 +64,6 @@ const Game = (() => {
         ["", "", ""],
         ["", "", ""],
       ];
-
-      controller.render();
     };
 
     resetButton.addEventListener("click", () => {
@@ -84,7 +82,7 @@ const Game = (() => {
   const placeToken = (token, x, y) => {
     if (gameBoard[x][y] === "") {
       gameBoard[x][y] = token;
-      playerTurn = playerTurn === playerOne ? playerTwo : playerOne;
+      currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
       controller.render();
     } else {
       alert("Space occupied. Please try an empty square!");
@@ -110,9 +108,10 @@ const Game = (() => {
 
     playerOne = Player(playerOneNameInput, true, playerOneTokenOption);
     playerTwo = Player(playerTwoNameInput, true, playerTwoTokenOption);
+    currentPlayer = playerOne;
   };
 
-  const getPlayerTurn = () => playerTurn;
+  const getCurrentPlayer = () => currentPlayer;
 
   const playGame = () => {
     playerInputDiv.classList.toggle("hidden");
@@ -120,6 +119,8 @@ const Game = (() => {
     boardContainer.classList.toggle("hidden");
 
     setPlayers();
+
+    controller.render();
   };
 
   playButton.addEventListener("click", () => {
@@ -130,5 +131,3 @@ const Game = (() => {
 })();
 
 const newGame = Game;
-
-newGame.getController().render();
