@@ -58,9 +58,13 @@ const Game = (() => {
   const controller = DisplayController;
 
   const placeToken = (token, x, y) => {
-    gameBoard[x][y] = token;
-    playerTurn = playerTurn === playerOne ? playerTwo : playerOne;
-    controller.render();
+    if (gameBoard[x][y] === "") {
+      gameBoard[x][y] = token;
+      playerTurn = playerTurn === playerOne ? playerTwo : playerOne;
+      controller.render();
+    } else {
+      alert("Space occupied. Please try an empty square!");
+    }
   };
 
   const getGameBoard = () => gameBoard;
@@ -81,5 +85,3 @@ const newGame = Game;
 newGame.getController().render();
 
 const players = newGame.getPlayers();
-
-console.log(players.playerOne.getName());
