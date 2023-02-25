@@ -1,4 +1,4 @@
-const testButton = document.querySelector(".test-button");
+const resetButton = document.querySelector(".reset-button");
 
 const Player = (name, isHuman, token) => {
   const getName = () => name;
@@ -9,7 +9,7 @@ const Player = (name, isHuman, token) => {
 };
 
 const Game = (() => {
-  const gameBoard = [
+  let gameBoard = [
     ["", "", ""],
     ["", "", ""],
     ["", "", ""],
@@ -23,6 +23,7 @@ const Game = (() => {
     const render = () => {
       const boardContainer = document.querySelector(".board-container");
       boardContainer.textContent = "";
+
       const playerTurnDiv = document.querySelector(".current-turn");
       playerTurnDiv.textContent = `Who's turn is it anyway? ${getPlayerTurn().getToken()}`;
 
@@ -66,6 +67,22 @@ const Game = (() => {
       alert("Space occupied. Please try an empty square!");
     }
   };
+
+  const resetGame = function () {
+    gameBoard = [
+      ["", "", ""],
+      ["", "", ""],
+      ["", "", ""],
+    ];
+
+    controller.render();
+  };
+
+  resetButton.addEventListener("click", () => {
+    if (confirm("Are you sure you want to reset?")) {
+      resetGame();
+    }
+  });
 
   const getGameBoard = () => gameBoard;
 

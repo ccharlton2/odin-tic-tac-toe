@@ -1,3 +1,10 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
 h1 {
   color: green;
 }
@@ -30,4 +37,12 @@ h1 {
 .board-container div[class*="row"] div[class*="col"]:nth-child(2) {
   border-right: 2px solid black;
   border-left: 2px solid black;
+}
+
+.reset-button {
+  background-color: burlywood;
+  border-radius: 12px;
+  border: none;
+  box-shadow: grey 2px 4px 4px;
+  padding: 10px 30px;
 }
