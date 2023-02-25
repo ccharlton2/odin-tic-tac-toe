@@ -1,8 +1,3 @@
-const resetButton = document.querySelector(".reset-button");
-const playButton = document.querySelector(".play-button");
-const currentTurnDiv = document.querySelector(".turn-card");
-const playerInputDiv = document.querySelector(".player-input");
-
 const Player = (name, isHuman, token) => {
   const getName = () => name;
   const getIsHuman = () => isHuman;
@@ -21,6 +16,11 @@ const Game = (() => {
   const playerOne = Player("Cross", true, "X");
   const playerTwo = Player("Naught", true, "O");
   let playerTurn = playerOne;
+
+  const resetButton = document.querySelector(".reset-button");
+  const playButton = document.querySelector(".play-button");
+  const currentTurnDiv = document.querySelector(".turn-card");
+  const playerInputDiv = document.querySelector(".player-input");
 
   const DisplayController = (() => {
     const render = () => {
