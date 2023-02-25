@@ -13,18 +13,18 @@ const Game = (() => {
     ["", "", ""],
   ];
 
-  const playerOne = Player("Cross", true, "X");
-  const playerTwo = Player("Naught", true, "O");
+  let playerOne = Player("Cross", true, "X");
+  let playerTwo = Player("Naught", true, "O");
   let playerTurn = playerOne;
 
   const resetButton = document.querySelector(".reset-button");
   const playButton = document.querySelector(".play-button");
   const currentTurnDiv = document.querySelector(".turn-card");
   const playerInputDiv = document.querySelector(".player-input");
+  const boardContainer = document.querySelector(".board-container");
 
   const DisplayController = (() => {
     const render = () => {
-      const boardContainer = document.querySelector(".board-container");
       boardContainer.textContent = "";
 
       const playerTurnDiv = document.querySelector(".current-turn");
@@ -41,6 +41,7 @@ const Game = (() => {
           const newCol = document.createElement("div");
           newCol.classList.add(`col-${colIndex}`);
           newCol.textContent = gameBoard[rowIndex][colIndex];
+          // eslint-disable-next-line no-loop-func
           newCol.addEventListener("click", () => {
             const whosTurn = getPlayerTurn();
             placeToken(
@@ -72,21 +73,13 @@ const Game = (() => {
         resetGame();
         playerInputDiv.classList.toggle("hidden");
         currentTurnDiv.classList.toggle("hidden");
+        boardContainer.classList.toggle("hidden");
       }
     });
     return { render };
   })(gameBoard);
 
   const controller = DisplayController;
-
-  const playGame = () => {
-    playerInputDiv.classList.toggle("hidden");
-    currentTurnDiv.classList.toggle("hidden");
-  };
-
-  playButton.addEventListener("click", () => {
-    playGame();
-  });
 
   const placeToken = (token, x, y) => {
     if (gameBoard[x][y] === "") {
@@ -106,13 +99,36 @@ const Game = (() => {
     return { playerOne, playerTwo };
   };
 
+  const setPlayers = function () {
+    const playerOneNameInput = document.getElementById("player-one-name").value;
+    const playerOneTokenOption =
+      document.getElementById("player-one-token").value;
+
+    const playerTwoNameInput = document.getElementById("player-two-name").value;
+    const playerTwoTokenOption =
+      document.getElementById("player-two-token").value;
+
+    playerOne = Player(playerOneNameInput, true, playerOneTokenOption);
+    playerTwo = Player(playerTwoNameInput, playerTwoTokenOption);
+  };
+
   const getPlayerTurn = () => playerTurn;
 
-  return { getGameBoard, placeToken, getController, getPlayers };
+  const playGame = () => {
+    playerInputDiv.classList.toggle("hidden");
+    currentTurnDiv.classList.toggle("hidden");
+    boardContainer.classList.toggle("hidden");
+
+    setPlayers();
+  };
+
+  playButton.addEventListener("click", () => {
+    playGame();
+  });
+
+  return { getGameBoard, placeToken, getController, getPlayers, setPlayers };
 })();
 
 const newGame = Game;
 
 newGame.getController().render();
-
-const players = newGame.getPlayers();
