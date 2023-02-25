@@ -25,7 +25,7 @@ const Game = (() => {
       boardContainer.textContent = "";
 
       const playerTurnDiv = document.querySelector(".current-turn");
-      playerTurnDiv.textContent = `Who's turn is it anyway? ${getPlayerTurn().getToken()}`;
+      playerTurnDiv.textContent = `${getPlayerTurn().getToken()}`;
 
       for (let rowIndex = 0; rowIndex < gameBoard.length; rowIndex += 1) {
         const newRow = document.createElement("div");
