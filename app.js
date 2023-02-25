@@ -109,7 +109,7 @@ const Game = (() => {
       document.getElementById("player-two-token").value;
 
     playerOne = Player(playerOneNameInput, true, playerOneTokenOption);
-    playerTwo = Player(playerTwoNameInput, playerTwoTokenOption);
+    playerTwo = Player(playerTwoNameInput, true, playerTwoTokenOption);
   };
 
   const getPlayerTurn = () => playerTurn;
