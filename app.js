@@ -73,6 +73,7 @@ const Game = (() => {
         playerInputDiv.classList.toggle("hidden");
         currentTurnDiv.classList.toggle("hidden");
         boardContainer.classList.toggle("hidden");
+        winnerDiv.classList.toggle("hidden");
       }
     });
     return { render };
@@ -185,19 +186,28 @@ const Game = (() => {
     const playerTwoTokenOption =
       document.getElementById("player-two-token").value;
 
-    playerOne = Player(playerOneNameInput, true, playerOneTokenOption);
-    playerTwo = Player(playerTwoNameInput, true, playerTwoTokenOption);
-    currentPlayer = playerOne;
+    if (playerOneNameInput === playerTwoNameInput) {
+      alert("Error. Player names must be unique");
+      // eslint-disable-next-line no-else-return
+    } else if (playerOneTokenOption === playerTwoTokenOption) {
+      alert("Player tokens must be different");
+    } else {
+      playerOne = Player(playerOneNameInput, true, playerOneTokenOption);
+      playerTwo = Player(playerTwoNameInput, true, playerTwoTokenOption);
+      currentPlayer = playerOne;
+      return true;
+    }
   };
 
   const playGame = () => {
-    playerInputDiv.classList.toggle("hidden");
-    currentTurnDiv.classList.toggle("hidden");
-    boardContainer.classList.toggle("hidden");
+    if (setPlayers() === true) {
+      playerInputDiv.classList.toggle("hidden");
+      currentTurnDiv.classList.toggle("hidden");
+      boardContainer.classList.toggle("hidden");
+      winnerDiv.classList.add("hidden");
 
-    setPlayers();
-
-    controller.render();
+      controller.render();
+    }
   };
 
   playButton.addEventListener("click", () => {
