@@ -16,6 +16,8 @@ const Game = (() => {
   let playerOne = "";
   let playerTwo = "";
   let currentPlayer = "";
+  let tokensPlaced = 0;
+  let gameOver = false;
 
   const resetButton = document.querySelector(".reset-button");
   const playButton = document.querySelector(".play-button");
@@ -23,7 +25,6 @@ const Game = (() => {
   const playerInputDiv = document.querySelector(".player-input");
   const boardContainer = document.querySelector(".board-container");
   const winnerDiv = document.querySelector(".winner");
-  let tokensPlaced = 0;
 
   const DisplayController = (() => {
     const render = () => {
@@ -68,6 +69,7 @@ const Game = (() => {
       ];
 
       tokensPlaced = 0;
+      gameOver = false;
     };
 
     resetButton.addEventListener("click", () => {
@@ -87,94 +89,104 @@ const Game = (() => {
   const getCurrentPlayer = () => currentPlayer;
 
   const placeToken = (token, x, y) => {
-    if (gameBoard[x][y] === "") {
-      tokensPlaced += 1;
-      gameBoard[x][y] = token;
+    if (!gameOver) {
+      if (gameBoard[x][y] === "") {
+        tokensPlaced += 1;
+        gameBoard[x][y] = token;
 
-      if (tokensPlaced === 9) {
-        winnerDiv.textContent = "Tie!";
-        winnerDiv.classList.toggle("hidden");
+        if (tokensPlaced === 9) {
+          winnerDiv.textContent = "Tie!";
+          winnerDiv.classList.toggle("hidden");
+          gameOver = true;
+        }
+
+        // check row win
+        if (
+          gameBoard[0][0] === token &&
+          gameBoard[0][1] === token &&
+          gameBoard[0][2] === token
+        ) {
+          winnerDiv.textContent = `${getCurrentPlayer().getName()} wins!`;
+          winnerDiv.classList.toggle("hidden");
+          gameOver = true;
+        }
+
+        if (
+          gameBoard[1][0] === token &&
+          gameBoard[1][1] === token &&
+          gameBoard[1][2] === token
+        ) {
+          winnerDiv.textContent = `${getCurrentPlayer().getName()} wins!`;
+          winnerDiv.classList.toggle("hidden");
+          gameOver = true;
+        }
+
+        if (
+          gameBoard[2][0] === token &&
+          gameBoard[2][1] === token &&
+          gameBoard[2][2] === token
+        ) {
+          winnerDiv.textContent = `${getCurrentPlayer().getName()} wins!`;
+          winnerDiv.classList.toggle("hidden");
+          gameOver = true;
+        }
+
+        // check col win
+        if (
+          gameBoard[0][0] === token &&
+          gameBoard[1][0] === token &&
+          gameBoard[2][0] === token
+        ) {
+          winnerDiv.textContent = `${getCurrentPlayer().getName()} wins!`;
+          winnerDiv.classList.toggle("hidden");
+          gameOver = true;
+        }
+
+        if (
+          gameBoard[0][1] === token &&
+          gameBoard[1][1] === token &&
+          gameBoard[2][1] === token
+        ) {
+          winnerDiv.textContent = `${getCurrentPlayer().getName()} wins!`;
+          winnerDiv.classList.toggle("hidden");
+          gameOver = true;
+        }
+
+        if (
+          gameBoard[0][2] === token &&
+          gameBoard[1][2] === token &&
+          gameBoard[2][2] === token
+        ) {
+          winnerDiv.textContent = `${getCurrentPlayer().getName()} wins!`;
+          winnerDiv.classList.toggle("hidden");
+          gameOver = true;
+        }
+
+        // check diagonal win
+        if (
+          gameBoard[0][0] === token &&
+          gameBoard[1][1] === token &&
+          gameBoard[2][2] === token
+        ) {
+          winnerDiv.textContent = `${getCurrentPlayer().getName()} wins!`;
+          winnerDiv.classList.toggle("hidden");
+          gameOver = true;
+        }
+
+        if (
+          gameBoard[0][2] === token &&
+          gameBoard[1][1] === token &&
+          gameBoard[2][0] === token
+        ) {
+          winnerDiv.textContent = `${getCurrentPlayer().getName()} wins!`;
+          winnerDiv.classList.toggle("hidden");
+          gameOver = true;
+        }
+        currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
+        controller.render();
+      } else {
+        alert("Space occupied. Please try an empty square!");
       }
-
-      // check row win
-      if (
-        gameBoard[0][0] === token &&
-        gameBoard[0][1] === token &&
-        gameBoard[0][2] === token
-      ) {
-        winnerDiv.textContent = `${getCurrentPlayer().getName()} wins!`;
-        winnerDiv.classList.toggle("hidden");
-      }
-
-      if (
-        gameBoard[1][0] === token &&
-        gameBoard[1][1] === token &&
-        gameBoard[1][2] === token
-      ) {
-        winnerDiv.textContent = `${getCurrentPlayer().getName()} wins!`;
-        winnerDiv.classList.toggle("hidden");
-      }
-
-      if (
-        gameBoard[2][0] === token &&
-        gameBoard[2][1] === token &&
-        gameBoard[2][2] === token
-      ) {
-        winnerDiv.textContent = `${getCurrentPlayer().getName()} wins!`;
-        winnerDiv.classList.toggle("hidden");
-      }
-
-      // check col win
-      if (
-        gameBoard[0][0] === token &&
-        gameBoard[1][0] === token &&
-        gameBoard[2][0] === token
-      ) {
-        winnerDiv.textContent = `${getCurrentPlayer().getName()} wins!`;
-        winnerDiv.classList.toggle("hidden");
-      }
-
-      if (
-        gameBoard[0][1] === token &&
-        gameBoard[1][1] === token &&
-        gameBoard[2][1] === token
-      ) {
-        winnerDiv.textContent = `${getCurrentPlayer().getName()} wins!`;
-        winnerDiv.classList.toggle("hidden");
-      }
-
-      if (
-        gameBoard[0][2] === token &&
-        gameBoard[1][2] === token &&
-        gameBoard[2][2] === token
-      ) {
-        winnerDiv.textContent = `${getCurrentPlayer().getName()} wins!`;
-        winnerDiv.classList.toggle("hidden");
-      }
-
-      // check diagonal win
-      if (
-        gameBoard[0][0] === token &&
-        gameBoard[1][1] === token &&
-        gameBoard[2][2] === token
-      ) {
-        winnerDiv.textContent = `${getCurrentPlayer().getName()} wins!`;
-        winnerDiv.classList.toggle("hidden");
-      }
-
-      if (
-        gameBoard[0][2] === token &&
-        gameBoard[1][1] === token &&
-        gameBoard[2][0] === token
-      ) {
-        winnerDiv.textContent = `${getCurrentPlayer().getName()} wins!`;
-        winnerDiv.classList.toggle("hidden");
-      }
-
-      currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
-      controller.render();
-    } else {
-      alert("Space occupied. Please try an empty square!");
     }
   };
 
