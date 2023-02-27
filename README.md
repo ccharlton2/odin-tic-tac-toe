@@ -15,3 +15,8 @@ I will tell the computer how to play Tic Tac Toe.
 # What tools will I use to solve this problem?
 
 HTML, CSS, and Javascript.
+
+# How to play
+
+1. Select player names and tokens
+2. Place tokens on board until a player wins or a draw happens
