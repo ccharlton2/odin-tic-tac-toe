@@ -23,6 +23,7 @@ const Game = (() => {
   const playerInputDiv = document.querySelector(".player-input");
   const boardContainer = document.querySelector(".board-container");
   const winnerDiv = document.querySelector(".winner");
+  let tokensPlaced = 0;
 
   const DisplayController = (() => {
     const render = () => {
@@ -65,6 +66,8 @@ const Game = (() => {
         ["", "", ""],
         ["", "", ""],
       ];
+
+      tokensPlaced = 0;
     };
 
     resetButton.addEventListener("click", () => {
@@ -85,7 +88,13 @@ const Game = (() => {
 
   const placeToken = (token, x, y) => {
     if (gameBoard[x][y] === "") {
+      tokensPlaced += 1;
       gameBoard[x][y] = token;
+
+      if (tokensPlaced === 9) {
+        winnerDiv.textContent = "Tie!";
+        winnerDiv.classList.toggle("hidden");
+      }
 
       // check row win
       if (
@@ -186,11 +195,13 @@ const Game = (() => {
     const playerTwoTokenOption =
       document.getElementById("player-two-token").value;
 
-    if (playerOneNameInput === playerTwoNameInput) {
-      alert("Error. Player names must be unique");
+    if (playerOneNameInput.trim() === "" || playerTwoNameInput.trim() === "") {
+      alert("Please enter a name for each player.");
       // eslint-disable-next-line no-else-return
     } else if (playerOneTokenOption === playerTwoTokenOption) {
-      alert("Player tokens must be different");
+      alert("Player tokens must be different.");
+    } else if (playerOneNameInput === playerTwoNameInput) {
+      alert("Error. Player names must be unique.");
     } else {
       playerOne = Player(playerOneNameInput, true, playerOneTokenOption);
       playerTwo = Player(playerTwoNameInput, true, playerTwoTokenOption);
